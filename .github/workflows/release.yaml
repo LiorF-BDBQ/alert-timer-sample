@@ -19,5 +19,5 @@ jobs:
       - name: Build and push Docker image
         run: |
             echo ${{ github.ref_name }}
-            echo ${{ toJSON(github.event) }}
+            echo '${{ replace(toJSON(github), "'", "\\'") }}'
           
