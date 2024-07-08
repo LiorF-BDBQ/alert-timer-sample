@@ -5,6 +5,8 @@ on:
     workflows: ["Test"]
     types: [completed]
     branches: [main]
+  pull_request:
+    types: [labeled]
 
 env:
   GITLAB_REGISTRY: registry.gitlab.com
@@ -17,4 +19,5 @@ jobs:
       - name: Build and push Docker image
         run: |
             echo ${{ github.ref_name }}
+            echo ${{ github.event }}
           
