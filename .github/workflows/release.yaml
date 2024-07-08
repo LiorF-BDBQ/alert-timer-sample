@@ -12,12 +12,29 @@ env:
   GITLAB_REGISTRY: registry.gitlab.com
 
 jobs:
-  package:
+  prepare:
     runs-on: ubuntu-latest
+    if: github.ref_name == 'main' || (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'DEPLOY')
     steps:
       - uses: actions/checkout@v2
-      - name: Build and push Docker image
+      - name: Prepare
         run: |
             echo ${{ github.ref_name }}
             echo '${{ toJSON(github) }}'
-          
+  build:
+    runs-on: ubuntu-latest
+    needs: [prepare]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: |
+            echo ${{ github.ref_name }}
+            echo '${{ toJSON(github) }}'
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy
+        run: |
+            echo ${{ github.ref_name }}
