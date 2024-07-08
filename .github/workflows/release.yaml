@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    types: [completed]
+    branches: [main]
+
+env:
+  GITLAB_REGISTRY: registry.gitlab.com
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and push Docker image
+        run: |
+            echo {{ github.ref_name }}
+          
