@@ -16,5 +16,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build and push Docker image
         run: |
-            echo {{ github.ref_name }}
+            echo ${{ github.ref_name }}
           
