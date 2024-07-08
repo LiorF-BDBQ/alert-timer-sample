@@ -21,6 +21,7 @@ jobs:
             echo ${{ github.ref_name }}
             echo '${{ toJSON(github) }}'
   build:
+    runs-on: ubuntu-latest
     if: github.ref_name == 'main' || (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'DEPLOY')
     steps:
       - uses: actions/checkout@v2
